@@ -1,9 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+#example_code
+/src/Components/Util.js
+
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
+.prettierrc
 
 # testing
 /coverage
