@@ -6,36 +6,38 @@ const DEFAULT_ARRAY = [
   [0, 0, 0],
 ];
 
-const Main = () => {
-  //Defining Hook to store current state as 2-D array and setArr to update the current state
-  const [arr, setArr] = useState(DEFAULT_ARRAY);
+const Button = (props) => {
+  return <button onClick={props.doThis}>{props.currentValue}</button>;
+};
 
-  //to change the state
+const Main = () => {
+  const [arr, setArr] = useState(DEFAULT_ARRAY); //Defining Hook to store current state as a 2-D array and setArr to update the current state
+  const [nextPlayerX, setNextPlayerX] = useState(true); //Defining Hook to store current player as "X" and toggle the player to "O" on updating the state
+
   const handleChangeState = (x, y) => {
-    // const newState = arr.map((x) => {
-    //   return x.slice();
-    // });
-    const newState = arr.map((x) => x.slice());
-    newState[x][y] = 1;
+    const newState = arr.map((x) => x.slice()); // state can't be mutated, so creating a copy of the array to change the state
+    newState[x][y] = nextPlayerX ? "X" : "O";
     setArr(newState);
-    console.log(x, y);
+
+    setNextPlayerX(!nextPlayerX);
   };
 
+  const status = "Next Player: " + (nextPlayerX ? "X" : "O");
+
   return (
-    //to return 3x3 matrix rendering 9 buttons
     <div>
+      <div>{status}</div>
       {arr.map((value, x) => {
         return (
           <div>
             {value.map((item, y) => {
               return (
-                <button
-                  onClick={() => {
-                    handleChangeState(x, y);
+                <Button
+                  currentValue={arr[x][y]}
+                  doThis={() => {
+                    handleChangeState(x, y); // to return 3x3 matrix rendering 9 buttons
                   }}
-                >
-                  {arr[x][y]}
-                </button>
+                />
               );
             })}
           </div>
