@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const DEFAULT_ARRAY = [
   [0, 0, 0],
@@ -8,6 +8,28 @@ const DEFAULT_ARRAY = [
 
 const Button = (props) => {
   return <button onClick={props.doThis}>{props.currentValue}</button>;
+};
+
+// Algorithm to find the winner
+const hasSomeoneWon = (state) => {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+  ];
+
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+
+    const val1 = state[Math.floor(a / 3)][a % 3];
+    const val2 = state[Math.floor(b / 3)][b % 3];
+    const val3 = state[Math.floor(c / 3)][c % 3];
+
+    if (val1 === val2 && val2 === val3) {
+      if (val1 !== 0) return true;
+    }
+  }
+  return null;
 };
 
 const Main = () => {
@@ -21,6 +43,13 @@ const Main = () => {
 
     setNextPlayerX(!nextPlayerX);
   };
+
+  useEffect(() => {
+    if (hasSomeoneWon(arr) === true) {
+      const winnerName = nextPlayerX ? "Winner is O" : "Winner is X"; //to display the winner
+      alert(winnerName);
+    }
+  }, [arr]);
 
   const status = "Next Player: " + (nextPlayerX ? "X" : "O");
 
