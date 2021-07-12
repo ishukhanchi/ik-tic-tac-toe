@@ -10,12 +10,24 @@ const DEFAULT_ARRAY = [
 
 const Button = (props) => {
   if (props.currentValue === "X") {
-    return <BsXSquare onClick={props.doThis} />;
+    return (
+      <button onClick={props.doThis}>
+        <BsXSquare />
+      </button>
+    );
   }
   if (props.currentValue === "O") {
-    return <FiCircle onClick={props.doThis} />;
+    return (
+      <button onClick={props.doThis}>
+        <FiCircle />
+      </button>
+    );
   }
-  return <BsSquare onClick={props.doThis} />;
+  return (
+    <button onClick={props.doThis}>
+      <BsSquare />
+    </button>
+  );
 };
 
 // Algorithm to find the winner
