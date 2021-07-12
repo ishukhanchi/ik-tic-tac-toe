@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { BsSquare, BsXSquare } from "react-icons/bs";
+import { FiCircle } from "react-icons/fi";
 
 const DEFAULT_ARRAY = [
   [0, 0, 0],
@@ -7,7 +9,13 @@ const DEFAULT_ARRAY = [
 ];
 
 const Button = (props) => {
-  return <button onClick={props.doThis}>{props.currentValue}</button>;
+  if (props.currentValue === "X") {
+    return <BsXSquare onClick={props.doThis} />;
+  }
+  if (props.currentValue === "O") {
+    return <FiCircle onClick={props.doThis} />;
+  }
+  return <BsSquare onClick={props.doThis} />;
 };
 
 // Algorithm to find the winner
